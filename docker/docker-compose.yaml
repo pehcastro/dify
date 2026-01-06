@@ -915,8 +915,8 @@ services:
     environment:
       REDISCLI_AUTH: ${REDIS_PASSWORD:-difyai123456}
     volumes:
-      # Mount the redis data directory to the container.
-      - ./volumes/redis/data:/data
+      # Use named volume instead of bind mount for Dokploy compatibility
+      - redis_data:/data
     # Set the redis password when startup redis server.
     command: redis-server --requirepass ${REDIS_PASSWORD:-difyai123456}
     healthcheck:
@@ -1609,5 +1609,6 @@ networks:
     internal: true
 
 volumes:
+  redis_data:
   oradata:
   dify_es01_data:
